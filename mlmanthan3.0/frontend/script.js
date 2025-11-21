@@ -13,6 +13,8 @@ const ateValue = document.getElementById('ate-value');
 const ciValue = document.getElementById('ci-value');
 const refuteValue = document.getElementById('refute-value');
 const sigBadge = document.getElementById('significance-badge');
+const effectValueCard = document.getElementById('effect-value');
+const effectCiCard = document.getElementById('effect-ci');
 const upliftTreatment = document.getElementById('uplift-treatment');
 const upliftControl = document.getElementById('uplift-control');
 const upliftAbsolute = document.getElementById('uplift-absolute');
@@ -145,14 +147,21 @@ function displayResults(data) {
 
     // Display Metrics
     const res = data.result;
-    ateValue.textContent = (res.estimate_value ?? 0).toFixed(4);
+    const effectDisplay = (res.estimate_value ?? 0).toFixed(4);
+    ateValue.textContent = effectDisplay;
+    if (effectValueCard) {
+        effectValueCard.textContent = effectDisplay;
+    }
 
     // Confidence Interval
+    let ciDisplay = "N/A";
     if (res.confidence_intervals && res.confidence_intervals.length === 2 && res.confidence_intervals.every(v => v !== null && v !== undefined)) {
         const [low, high] = res.confidence_intervals;
-        ciValue.textContent = `[${low.toFixed(4)}, ${high.toFixed(4)}]`;
-    } else {
-        ciValue.textContent = "N/A";
+        ciDisplay = `[${low.toFixed(4)}, ${high.toFixed(4)}]`;
+    }
+    ciValue.textContent = ciDisplay;
+    if (effectCiCard) {
+        effectCiCard.textContent = ciDisplay;
     }
 
     // Refutation
