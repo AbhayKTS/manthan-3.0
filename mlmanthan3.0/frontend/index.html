@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causal Inference Marketing Attribution</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Causal<span class="highlight">Lift</span></h1>
+            <p>Marketing Attribution & Uplift Modeling</p>
+        </header>
+
+        <main>
+            <!-- Sidebar / Control Panel -->
+            <aside class="glass-panel">
+                <h2>Data Source</h2>
+                <div class="control-group">
+                    <button id="btn-simulate" class="btn secondary">Simulate Data</button>
+                    <div class="or-divider">OR</div>
+                    <label for="file-upload" class="custom-file-upload btn primary">
+                        Upload CSV/Excel
+                    </label>
+                    <input id="file-upload" type="file" accept=".csv, .xlsx, .xls" />
+                    <span id="file-name">No file selected</span>
+                </div>
+
+                <hr>
+
+                <h2>Configuration</h2>
+                <div class="control-group">
+                    <label for="treatment-select">Treatment (Campaign)</label>
+                    <select id="treatment-select" disabled>
+                        <option value="">Select Treatment</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="outcome-select">Outcome (Conversion/Sales)</label>
+                    <select id="outcome-select" disabled>
+                        <option value="">Select Outcome</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Confounders (Control Variables)</label>
+                    <div id="confounders-list" class="checkbox-list">
+                        <p class="placeholder-text">Load data to see columns</p>
+                    </div>
+                </div>
+
+                <button id="btn-analyze" class="btn accent" disabled>Run Causal Analysis</button>
+            </aside>
+
+            <!-- Main Content / Results -->
+            <section class="results-area">
+                <div class="glass-panel result-card">
+                    <h3>Causal Graph</h3>
+                    <div id="graph-container" class="graph-placeholder">
+                        <p>Graph will appear here after analysis</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel result-card">
+                    <h3>Estimated Causal Effect</h3>
+                    <div id="results-container" class="results-placeholder">
+                        <div class="metric-box">
+                            <span class="label">Average Treatment Effect (ATE)</span>
+                            <span class="value" id="ate-value">--</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="label">95% Confidence Interval</span>
+                            <span class="value" id="ci-value">--</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="label">Refutation Result (Placebo)</span>
+                            <span class="value" id="refute-value">--</span>
+                        </div>
+                        <div id="significance-badge" class="badge"></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel result-card">
+                    <h3>Uplift Insights</h3>
+                    <div id="uplift-container" class="uplift-grid">
+                        <div class="stat-card">
+                            <span class="label">Treatment Avg Outcome</span>
+                            <span class="value" id="uplift-treatment">--</span>
+                            <span class="muted" id="uplift-treatment-size">--</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="label">Control Avg Outcome</span>
+                            <span class="value" id="uplift-control">--</span>
+                            <span class="muted" id="uplift-control-size">--</span>
+                        </div>
+                        <div class="stat-card emphasis">
+                            <span class="label">Absolute Uplift</span>
+                            <span class="value" id="uplift-absolute">--</span>
+                            <span class="muted">vs control</span>
+                        </div>
+                        <div class="stat-card emphasis">
+                            <span class="label">Relative Uplift</span>
+                            <span class="value" id="uplift-relative">--</span>
+                            <span class="muted">% over baseline</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
